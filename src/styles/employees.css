@@ -1,0 +1,33 @@
+.employees{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin: 100px;
+}
+.employees .box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+.employees .box img{
+    width: 100%;
+}
+.employees .box .icons{
+    display: flex;
+    gap: 10px;
+}
+.employees .box h3{
+    font-size: 32px;
+    font-weight: 500;
+}
+.employees .box p{
+    font-size: 16px;
+    font-weight: 400;
+}
+@media (max-width: 1150px){
+    .employees{
+        flex-wrap: wrap;
+    }
+}

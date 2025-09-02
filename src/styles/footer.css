@@ -1,0 +1,96 @@
+.footer-section {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 80px;
+  font-size: 14px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+}
+
+
+.footer-item h4 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.footer-item p, .footer-item li {
+  margin: 6px 0;
+  color: #bbb;
+}
+
+.footer-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.subscribe-box {
+  display: flex;
+  margin-top: 10px;
+  position: relative;
+}
+
+.subscribe-box input {
+  padding: 8px;
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+.subscribe-box button {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.download-app img {
+  width: 70%;
+  margin-top: 8px;
+}
+
+.download-app {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  font-size: 18px;
+}
+.social-icons a{
+  color: #fff;
+}
+.footer-bottom {
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+}
+.subscribe-box .submit-btn {
+  color: #000000;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  size: 16px;
+  right: 5px;
+}
+@media (max-width: 1000px){
+  .footer-container{
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

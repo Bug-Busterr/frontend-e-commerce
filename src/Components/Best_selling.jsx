@@ -1,138 +1,55 @@
-import React, { Component } from 'react'
-import './Best_selling.css'
-import './Card.css'
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
-import { FaEye } from 'react-icons/fa';
-import { FaStar,FaHeart  } from 'react-icons/fa';
+import {useState } from 'react';
+import '../styles/productCard.css';
+import useFetch from "../useFetch"
+import { FaEye, FaHeart, FaStar } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
-export class Best_selling extends Component {
-  render() {
+function Best_selling() {
+ const { data, loading, error } = useFetch("https://fakestoreapi.com/products")
+  const [showAll, setShowAll] = useState(false)
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error: {error}</p>
+
+    const visibleProducts = showAll ? data : data.slice(5, 9);
+
     return (
-        <>
-     <div className="containerr">
+        <div className="product-section">
+            <h3 className='section-subtitle'>This Month</h3>
+            <h2 className="section-title">Best Selling Products</h2>
 
-        <div className='today this-month'>
-            <h3>This Month</h3>
-        </div>
-
-        <div className="Flash">
-            <div>
-                <h2>Best Selling Products</h2>
+            <div className='product-list'>
+                {visibleProducts.map(product => (
+                    <div className="product-card" key={product.id}>
+                    <div className="product-img">
+                        <img src={product.image} alt={product.title} />
+                        <FaHeart className="icon heart" />
+                        <Link to={`/product/${product.id}`}>
+                            <FaEye className="icon eye" />
+                        </Link>
+                    </div>
+                    <button className="add-btn">Add To Cart</button>
+                    <h3>{product.title}</h3>
+                    <p className="price">${product.price}</p>
+                                    
+                    <div className="rating">
+                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+                    <span>({product.rating.count})</span>
+                    </div>
+                    </div>
+                ))}
             </div>
-
-            <div className="arrow-icon">
-                <button className='veiw-btn'>View All </button>
-            </div>
+        
+        {data.length > 4 && (
+        <div className="view-all-container">
+          <button className="view-all-btn" onClick={() => setShowAll(!showAll)}>
+            {showAll ? "View Less" : "View All Products"}
+          </button>
         </div>
+        )}
 
-       
-
-          <div className='cards'>
-
-  {/* Card 1 */}
-  <div className='card1 show'>
-    <div className='card-img'>
-      <img src='/img/Frame 614.png' width='200px'/>
-      <button className='card-btn'>Add to cart</button>
-      <FaEye  className='eye-icon'/>
-      <FaHeart  className='heart-icon'/>
-      <span className='discount'>-20%</span>
-    </div>
-
-    <div className='img-details'>
-      <h3>Havithv-G9 Gamped</h3>
-      <div>
-        <span className='price1'>$192</span>
-        <span className='price2'>$140</span>
-      </div>
-      <div style={{ display: 'flex', gap: '5px', color: '#FFD700' }}>
-        <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-      </div>
-    </div>
-  </div>
-
-  {/* Card 2 */}
-  <div className='card1 show'>
-    <div className='card-img'>
-      <img src='/img/Frame 613.png' width='200px'/>
-      <button className='card-btn'>Add to cart</button>
-      <FaEye  className='eye-icon'/>
-      <FaHeart  className='heart-icon'/>
-      <span className='discount'>-20%</span>
-    </div>
-
-    <div className='img-details'>
-      <h3>Havithv-G9 Gamped</h3>
-      <div>
-        <span className='price1'>$192</span>
-        <span className='price2'>$140</span>
-      </div>
-      <div style={{ display: 'flex', gap: '5px', color: '#FFD700' }}>
-        <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-      </div>
-    </div>
-  </div>
-
-  {/* Card 3*/}
-  <div className='card1 show'>
-    <div className='card-img'>
-      <img src='/img/Frame 610.png' width='200px'/>
-      <button className='card-btn'>Add to cart</button>
-      <FaEye  className='eye-icon'/>
-      <FaHeart  className='heart-icon'/>
-      <span className='discount'>-20%</span>
-    </div>
-
-    <div className='img-details'>
-      <h3>Havithv-G9 Gamped</h3>
-      <div>
-        <span className='price1'>$192</span>
-        <span className='price2'>$140</span>
-      </div>
-      <div style={{ display: 'flex', gap: '5px', color: '#FFD700' }}>
-        <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-      </div>
-    </div>
-  </div>
-
-  {/* Card 4*/}
-  <div className='card1 show'>
-    <div className='card-img'>
-      <img src='/img/imag.png' width='200px'/>
-      <button className='card-btn'>Add to cart</button>
-      <FaEye  className='eye-icon'/>
-      <FaHeart  className='heart-icon'/>
-      <span className='discount'>-20%</span>
-    </div>
-
-    <div className='img-details'>
-      <h3>Havithv-G9 Gamped</h3>
-      <div>
-        <span className='price1'>$192</span>
-        <span className='price2'>$140</span>
-      </div>
-      <div style={{ display: 'flex', gap: '5px', color: '#FFD700' }}>
-        <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-      </div>
-    </div>
-  </div>
-
-
-</div>
-
-
-     
-    
-    <div className='line'><hr/></div>
-
-
-
-
-     </div>
-      
-      </>
-    )
-  }
+        </div>
+    );
 }
 
-export default Best_selling
+export default Best_selling;

@@ -1,7 +1,7 @@
-import './Navbar.css'
+import '../styles/Navbar.css'
 import { FaHeart, FaShoppingCart, FaUser, FaSearch,FaBars, FaTimes } from "react-icons/fa";
-import React, { useState } from 'react'
-
+import { useState } from 'react'
+import { Link } from "react-router-dom";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -29,26 +29,24 @@ function Navbar() {
           <div className={`nav-links ${isOpen ? "active" : ""}`}>
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/">Contact</a></li>
-              <li><a href="/">About</a></li>
-              <li><a href="/">SignUp</a></li>
+              <li><a href="/Contact">Contact</a></li>
+              <li><a href="/About">About</a></li>
+              <li><a href="/Signup">SignUp</a></li>
             </ul>
             <div className="search-box">
                 <input type='search' placeholder='What are you looking for?' />
                 <FaSearch className="search-icon" />
+                
+                
             </div>
-
-          </div>
-          
-
-
-          <div className='icons'>
+            <div className='icons' >
+                 <Link to="/Wishlist"><FaHeart/></Link> 
+                 <Link to="/cart"><FaShoppingCart /></Link>
+                  <Link to="/AdminDashboard"><FaUser/></Link>
+                </div>
             
-            {/* <FaHeart/>
-          <FaShoppingCart/>
-          <FaUser/> */}
-          
           </div>
+
           <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <FaTimes /> : <FaBars />}
           </div>

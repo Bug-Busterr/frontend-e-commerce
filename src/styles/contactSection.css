@@ -1,0 +1,122 @@
+.contact-page {
+  padding: 80px;
+}
+.contact-page .contact-path {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 50px;
+}
+.contact-page .contact-path span {
+  color: #000;
+  font-weight: bold;
+}
+.contact-page .contact-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 50px;
+}
+
+.contact-page .contact-info, .contact-page .contact-form {
+  background: #fff;
+  padding: 80px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-page .info-block {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.contact-page .icon {
+  background-color: #db4444;
+  color: #fff;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin-top: 15px;
+}
+.contact-page .info-block h3 {
+  margin: 15px 0;
+  font-size: 18px;
+}
+.contact-page .info-block p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+.contact-page .highlight {
+  color: #000;
+  font-weight: 600;
+}
+
+.contact-page .contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.contact-page .form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-page .form-row input {
+  flex: 1;
+  width: 100%;   
+  max-width: 100%; 
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #6666661b;
+  box-sizing: border-box;  
+}
+
+.contact-page textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  resize: none;
+  background-color: #6666661b;
+  width: 100%;   
+  max-width: 100%; 
+  box-sizing: border-box;  
+}
+.contact-page .send-btn {
+  background: #db4444;
+  color: white;
+  padding: 18px 30px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  align-self: flex-end;
+}
+
+.contact-page .send-btn:hover {
+  background: #b93737;
+}
+
+@media (max-width: 1000px) {
+  .contact-page .contact-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    gap: 20px;     
+    align-items: center; 
+  }
+  .contact-page .contact-form {
+    width: 100%; 
+    max-width: 600px;
+    padding: 30px;
+  }
+}
+
