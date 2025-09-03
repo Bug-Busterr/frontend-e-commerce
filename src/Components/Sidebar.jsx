@@ -1,5 +1,4 @@
-import React from "react";
-import { FaTachometerAlt, FaBox, FaUsers, FaShoppingCart, FaCog } from "react-icons/fa";
+import { FaTachometerAlt, FaBox, FaUsers, FaShoppingCart, FaTag } from "react-icons/fa"
 
 function Sidebar({ setActivePage }) {
   return (
@@ -10,10 +9,10 @@ function Sidebar({ setActivePage }) {
         <li onClick={() => setActivePage("products")}><FaBox /> Products</li>
         <li onClick={() => setActivePage("orders")}><FaShoppingCart /> Orders</li>
         <li onClick={() => setActivePage("users")}><FaUsers /> Users</li>
-        <li onClick={() => setActivePage("settings")}><FaCog /> Settings</li>
+        <li onClick={() => setActivePage("discounts")}><FaTag /> Discounts</li>
       </ul>
     </aside>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

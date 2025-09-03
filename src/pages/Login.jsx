@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Image from "../assets/images/image.png";
 import "../styles/LogIn.css";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
+
 
 const LogIn = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState({ text: "", type: "" });
 
   const [data, setData] = useState({
     Email: "",
@@ -13,20 +17,14 @@ const LogIn = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      alert("Logged in successfully");
-    }
-    console.log(data);
-  }, [formErrors, isSubmit]);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -52,22 +50,68 @@ const LogIn = () => {
     e.preventDefault();
     setFormErrors(validate(data));
     setIsSubmit(true);
+
+    if (Object.keys(validate(data)).length !== 0) return;
+
     try {
+      if (
+        data.Email === "admin@exclusive.com" &&
+        data.Password === "admin-1234567"
+      ) {
+        localStorage.setItem("role", "admin");
+        localStorage.setItem("token", "admin-token");
+
+        setMessage({ text: "Admin logged in successfully", type: "success" });
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1200);
+
+        setData({ Email: "", Password: "" });
+        return;
+      }
+
+      const usersRes = await fetch("https://fakestoreapi.com/users");
+      const users = await usersRes.json();
+
+      const foundUser = users.find((u) => u.email === data.Email);
+
+      if (!foundUser) {
+        setMessage({ text: "Account not found", type: "error" });
+        return;
+      }
+
       const res = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: foundUser.username,
+          password: data.Password,
+        }),
       });
-      const forData = await res.json();
-      console.log(forData);
-      setData({
-        Email: "",
-        Password: "",
-      });
+
+      const userData = await res.json();
+
+      if (userData && userData.token) {
+        localStorage.setItem("token", userData.token);
+        localStorage.setItem("role", "user");
+
+        setMessage({ text: "User logged in successfully", type: "success" });
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1200);
+
+        setData({ Email: "", Password: "" });
+      } else {
+        setMessage({ text: "Invalid credentials", type: "error" });
+      }
     } catch (error) {
       console.log(error);
+      setMessage({
+        text: "Something went wrong, try again later",
+        type: "error",
+      });
     }
   };
 
@@ -83,18 +127,23 @@ const LogIn = () => {
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="login-container">
         <div className="img">
           <img src={Image} alt="img" />
         </div>
         <div className="inform">
           <h2>Log in to Exclusive</h2>
           <p>Enter your details below</p>
+
+          {message.text && (
+            <div className={`message ${message.type}`}>{message.text}</div>
+          )}
+
           <div className="login">
             <form onSubmit={handleSubmit}>
               <input
                 type="email"
-                placeholder="Email or Phone Number"
+                placeholder="Email"
                 name="Email"
                 value={data.Email}
                 onChange={handleChange}
@@ -114,7 +163,7 @@ const LogIn = () => {
               <br />
               <div className="log">
                 <button type="submit">Log In</button>
-                <a href="#"> Forget Password?</a>
+                <Link to ="/Forget">Forget Password?</Link>
               </div>
             </form>
           </div>

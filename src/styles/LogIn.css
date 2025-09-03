@@ -1,13 +1,5 @@
-.container {
-  display: flex;
-  justify-content: space-around;
-  width: 1305px;
-  height: 800px;
-  gap: 100px;
-  margin-bottom: 50px;
-  margin-top: 0;
-}
-.inform h2 {
+
+.login-container .inform h2 {
   font-weight: 500;
   font-style: Medium;
   font-size: 36px;
@@ -15,24 +7,8 @@
   letter-spacing: 4%;
   margin-bottom: 20px;
 }
-.inform p{
+.login-container .inform p{
   margin-bottom: 40px;
-}
-.container .img {
-  width: 800px;
-  height: 500px;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  position: relative;
-  top: 40px;
-}
-.inform {
-  display: flex;
-  flex-direction: column;
-  width: 371;
-  height: 530;
-  position: relative;
-  top: 100px;
 }
 .login input {
   width: 320px;
@@ -68,4 +44,56 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.message {
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.login-container.img img {
+  width: 100%;
+  height: auto;
+}
+.login-container.inform {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1250px) {
+  .login-container{
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  .login-container .img img{
+    display: none; 
+  }
+
+  .login-container .inform {
+    order: 1; 
+    align-items: center;
+    margin: 60px;
+  }
+  .login-container .inform span{
+    display: flex;
+    align-items: center;
+  }
 }

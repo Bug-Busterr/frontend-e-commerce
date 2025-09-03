@@ -2,8 +2,12 @@ import '../styles/Navbar.css'
 import { FaHeart, FaShoppingCart, FaUser, FaSearch,FaBars, FaTimes } from "react-icons/fa";
 import { useState } from 'react'
 import { Link } from "react-router-dom";
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const role = localStorage.getItem("role");
+
   return (
     <>
       <div className='nav-bar'>
@@ -36,21 +40,19 @@ function Navbar() {
             <div className="search-box">
                 <input type='search' placeholder='What are you looking for?' />
                 <FaSearch className="search-icon" />
-                
-                
             </div>
             <div className='icons' >
                  <Link to="/Wishlist"><FaHeart/></Link> 
                  <Link to="/cart"><FaShoppingCart /></Link>
-                  <Link to="/AdminDashboard"><FaUser/></Link>
-                </div>
-            
+                 <Link to={role === "admin" ? "/AdminDashboard" : "/Account"}>
+                   <FaUser/>
+                 </Link>
+            </div>
           </div>
 
           <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <FaTimes /> : <FaBars />}
           </div>
-
 
         </div>
       </div>

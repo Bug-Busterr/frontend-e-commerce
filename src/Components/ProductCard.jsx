@@ -1,32 +1,44 @@
 import { FaEye, FaHeart, FaStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { useCart } from './CartContext';
+import '../styles/productCard.css';
 
-function ProductCard({ id,img, name, oldPrice, newPrice, discount }) {
-    return (
-        
-        <div className='card1 show'>
-            <div className='card-img'>
-                <img src={img} width='200px' alt={name} />
-                <button className='card-btn'>Add to cart</button>
-                <FaEye className='eye-icon' />
-                <FaHeart className='heart-icon' />
-                <span className='discount'>-{discount}%</span>
-            </div>
+function ProductCard({ id, img, name, oldPrice, newPrice, discount }) {
+  const { addToCart } = useCart();
 
-            <div className='img-details'>
-                <h3>{name}</h3>
-                <div>
-                    <span className='price1'>${oldPrice}</span>
-                    <span className='price2'>${newPrice}</span>
-                </div>
-                <div style={{ display: 'flex', gap: '5px', color: '#FFD700' }}>
-                    {[...Array(5)].map((_, i) => (
-                        <FaStar key={i} />
-                    ))}
-                </div>
-            </div>
-        </div>
-        
-    );
+  const handleAddToCart = () => {
+    const productToAdd = { id, name, price: newPrice, img, qty: 1 };
+    addToCart(productToAdd);
+  };
+
+  return (
+    <div className="product-card" key={id}>
+      <div className="product-img">
+        <img src={img} alt={name} />
+        <FaHeart className="icon heart" />
+        <Link to={`/product/${id}`}>
+          <FaEye className="icon eye" />
+        </Link>
+      </div>
+
+      <button className="add-btn" onClick={handleAddToCart}>
+        Add to cart
+      </button>
+
+      <h3>{name}</h3>
+
+      <p className="price">
+        <span className="old-price">${oldPrice}</span>{" "}
+        <span className="new-price">${newPrice}</span>
+        {discount && <span className="discount">-{discount}%</span>}
+      </p>
+
+      <div className="rating">
+        <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+        <span>(100)</span>
+      </div>
+    </div>
+  );
 }
 
 export default ProductCard;

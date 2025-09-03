@@ -6,7 +6,7 @@
 }
 
 .dashboard-card {
-  background: #ffffff; /* أبيض نضيف للـ Dashboard */
+  background: #ffffff; 
   padding: 20px;
   border-radius: 14px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -27,5 +27,5 @@
 .dashboard-card p {
   font-size: 24px;
   font-weight: bold;
-  color: #28a745; /* أخضر مميز للإحصائيات */
+  color: #28a745; 
 }

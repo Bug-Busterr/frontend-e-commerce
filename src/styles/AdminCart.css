@@ -1,7 +1,7 @@
 .admin-card {
   display: flex;
   align-items: center;
-  background: #1e1e2f; /* لون غامق يناسب لوحة تحكم الادمن */
+  background: rgb(48, 48, 48);
   color: #fff;
   padding: 15px 20px;
   border-radius: 12px;
@@ -9,7 +9,6 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .admin-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 15px rgba(0,0,0,0.5);
@@ -19,13 +18,11 @@
   font-size: 30px;
   margin-right: 15px;
 }
-
 .admin-card-info h4 {
   font-size: 18px;
   margin: 0;
   font-weight: 600;
 }
-
 .admin-card-info p {
   font-size: 16px;
   margin: 5px 0 0;

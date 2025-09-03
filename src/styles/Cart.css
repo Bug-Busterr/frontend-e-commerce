@@ -16,7 +16,6 @@
   font-weight: 600;
 }
 
-/* الجدول */
 .cart-table {
   width: 100%;
   border-collapse: collapse;
@@ -28,7 +27,7 @@
   border: 1px solid #eee;
   padding: 12px;
   text-align: left;
-  white-space: nowrap; /* علشان الخانات متتكسرش */
+  white-space: nowrap; 
 }
 
 .product-cell {
@@ -43,7 +42,6 @@
   object-fit: cover;
 }
 
-/* الأزرار */
 .cart-buttons {
   display: flex;
   justify-content: space-between;
@@ -57,34 +55,18 @@
   background: white;
   cursor: pointer;
   border-radius: 4px;
-  flex: 1; /* يخلي الأزرار تاخد نفس العرض */
+  flex: 1; 
 }
 
 .btn-outline:hover {
   background: #f5f5f5;
 }
 
-/* الكوبون + الكارت */
 .cart-footer {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 30px;
-}
-
-.coupon-box {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.coupon-box input {
-  padding: 8px;
-  width: 240px;
-  height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
 }
 
 .btn-red {
@@ -94,7 +76,7 @@
   padding: 10px 16px;
   border-radius: 4px;
   cursor: pointer;
-  width: 200px;
+  min-width: 150px;
   height: 40px;
 }
 
@@ -129,9 +111,63 @@
   width: 100%;
   margin-top: 15px;
 }
+.coupon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20px;
+}
 
-/* 📱 ريسبونسف للشاشات الصغيرة */
-@media (max-width: 768px) {
+.coupon-inputs {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.coupon-inputs input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+}
+
+.coupon-inputs input:focus {
+  border-color: #ff4d4f;
+}
+
+.coupon-message {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  width: 100%;
+  text-align: left;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.coupon-message.success {
+  background-color: #e6f9ed;
+  color: #2d7a46;
+  border: 1px solid #2d7a46;
+}
+
+.coupon-message.error {
+  background-color: #fdecea;
+  color: #a12622;
+  border: 1px solid #a12622;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1000px) {
   .cart-buttons {
     flex-direction: column;
     align-items: stretch;
@@ -143,12 +179,12 @@
   }
 
   .coupon-box {
-    flex-direction: column;
     width: 100%;
+    max-width: 100%;
   }
 
-  .coupon-box input {
-    width: 100%;
+  .coupon-inputs {
+    flex-direction: column;
   }
 
   .btn-red {
