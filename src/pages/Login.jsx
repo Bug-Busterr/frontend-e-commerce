@@ -71,7 +71,7 @@ const LogIn = () => {
         return;
       }
 
-      const usersRes = await fetch("https://fakestoreapi.com/users");
+      const usersRes = await fetch("https://e-comerce-111.vercel.app/api/auth/login");
       const users = await usersRes.json();
 
       const foundUser = users.find((u) => u.email === data.Email);
