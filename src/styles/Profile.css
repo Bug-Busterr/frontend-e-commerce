@@ -122,7 +122,11 @@
   font-weight: 500;
   border-radius: 4px;
   cursor: pointer;
+
   transition: background 0.3s ease;
+
+  transition: 0.3s ease;
+
 }
 
 .btn2:hover {
