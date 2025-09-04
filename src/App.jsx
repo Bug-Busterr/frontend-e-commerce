@@ -15,10 +15,13 @@ import Footer from "./Components/footer";
 import Checkout from "./pages/Checkout.jsx";
 import Account from "./components/Account.jsx";
 import { CartProvider } from "./components/CartContext.jsx";
+import { WishlistProvider } from "./Components/WishlistContext.jsx";
+import UserOrder from './Components/UserOrder.jsx'
 
 function App() {
   return (
     <>
+       <WishlistProvider>
       <CartProvider>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -34,9 +37,12 @@ function App() {
           <Route path="/Account" element={<Account />} />
           <Route path="/Forget" element={<ForgetPass />} />
           <Route path="/Reset" element={<ResetPass />} />
+          <Route path="/UserOrder" element={<UserOrder />} />
         </Routes>
       </CartProvider>
+      </WishlistProvider>
       <Footer />
+      
     </>
   );
 }

@@ -1,0 +1,150 @@
+.order-confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: #f5f5f5;
+    min-height: 80vh;
+}
+
+.confirmation-header {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.confirmation-icon {
+    color: #28a745;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.confirmation-header h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.confirmation-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+.order-summary,
+.next-steps {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+}
+
+.order-summary h3,
+.next-steps h3 {
+    color: #333;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-details .detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    color: #555;
+    font-size: 1rem;
+}
+
+.bold-text {
+    font-weight: bold;
+    color: #000;
+}
+
+.next-steps ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.next-steps li {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1rem;
+}
+
+.next-steps li strong {
+    color: #000;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.continue-shopping-btn,
+.contact-us-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.continue-shopping-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.continue-shopping-btn:hover {
+    background-color: #0056b3;
+}
+
+.contact-us-btn {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.contact-us-btn:hover {
+    background-color: #dae0e5;
+}
+
+
+@media (max-width: 768px) {
+    .order-confirmation-container {
+        padding: 2rem 1rem;
+    }
+
+    .confirmation-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .order-summary h3,
+    .next-steps h3 {
+        font-size: 1.2rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .continue-shopping-btn,
+    .contact-us-btn {
+        width: 100%;
+    }
+}
