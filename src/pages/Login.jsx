@@ -1,28 +1,18 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Image from "../assets/images/image.png";
 import "../styles/LogIn.css";
-import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 
-
-const LogIn = () => {
+const Login = ({ handleLogin }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState({ text: "", type: "" });
-
-  const [data, setData] = useState({
-    Email: "",
-    Password: "",
-  });
+  const [data, setData] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -33,100 +23,66 @@ const LogIn = () => {
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!values.Email) {
-      errors.Email = "Email is required!";
-    } else if (!regex.test(values.Email)) {
-      errors.Email = "Please enter the correct email!";
-    }
-    if (!values.Password) {
-      errors.Password = "Password is required!";
-    } else if (values.Password.length < 4) {
-      errors.Password = "Password must be more than 4 characters";
-    }
+    if (!values.email) errors.email = "Email is required!";
+    else if (!regex.test(values.email)) errors.email = "Please enter a valid email!";
+    if (!values.password) errors.password = "Password is required!";
+    else if (values.password.length < 4) errors.password = "Password must be more than 4 characters";
     return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormErrors(validate(data));
-    setIsSubmit(true);
+    const errors = validate(data);
+    setFormErrors(errors);
 
-    if (Object.keys(validate(data)).length !== 0) return;
+    if (Object.keys(errors).length !== 0) return;
+
+    setMessage({ text: "", type: "" });
 
     try {
-      if (
-        data.Email === "admin@exclusive.com" &&
-        data.Password === "admin-1234567"
-      ) {
-        localStorage.setItem("role", "admin");
-        localStorage.setItem("token", "admin-token");
+      localStorage.clear();
 
-        setMessage({ text: "Admin logged in successfully", type: "success" });
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1200);
-
-        setData({ Email: "", Password: "" });
-        return;
-      }
-
-      const usersRes = await fetch("https://fakestoreapi.com/users");
-      const users = await usersRes.json();
-
-      const foundUser = users.find((u) => u.email === data.Email);
-
-      if (!foundUser) {
-        setMessage({ text: "Account not found", type: "error" });
-        return;
-      }
-
-      const res = await fetch("https://fakestoreapi.com/auth/login", {
+      const res = await fetch("https://e-comerce-111.vercel.app/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: foundUser.username,
-          password: data.Password,
+          email: data.email.trim(),
+          password: data.password,
         }),
       });
 
       const userData = await res.json();
+      console.log(userData)
+      if (res.ok && userData.data.token) {
+        localStorage.setItem("token", userData.data.token);
+        localStorage.setItem("role", userData.data.role || "user");
 
-      if (userData && userData.token) {
-        localStorage.setItem("token", userData.token);
-        localStorage.setItem("role", "user");
+        if (handleLogin) handleLogin(userData.data.token, userData.data.role || "user");
 
-        setMessage({ text: "User logged in successfully", type: "success" });
+        setMessage({ text: "Logged in successfully", type: "success" });
 
-        setTimeout(() => {
-          navigate("/");
-        }, 1200);
-
-        setData({ Email: "", Password: "" });
-      } else {
-        setMessage({ text: "Invalid credentials", type: "error" });
+        if (userData.data.role === "ADMIN") navigate("/AdminDashboard");
+        else navigate("/Account");
+      } 
+      else {
+        setMessage({ text: userData.message || "Invalid credentials", type: "error" });
       }
     } catch (error) {
-      console.log(error);
-      setMessage({
-        text: "Something went wrong, try again later",
-        type: "error",
-      });
+      setMessage({ text: "Server error. Try again later", type: "error" });
     }
   };
 
-  if (isLoading) {
+  if (isLoading)
     return (
       <div className="app-loading">
         <h2>Loading Log in Page...</h2>
         <div className="loading-spinner"></div>
       </div>
     );
-  }
 
   return (
     <>
-      <Navbar />
+      <Navbar role={localStorage.getItem("role")} />
       <div className="login-container">
         <div className="img">
           <img src={Image} alt="img" />
@@ -135,35 +91,33 @@ const LogIn = () => {
           <h2>Log in to Exclusive</h2>
           <p>Enter your details below</p>
 
-          {message.text && (
-            <div className={`message ${message.type}`}>{message.text}</div>
-          )}
+          {message.text && <div className={`message ${message.type}`}>{message.text}</div>}
 
           <div className="login">
             <form onSubmit={handleSubmit}>
               <input
                 type="email"
                 placeholder="Email"
-                name="Email"
-                value={data.Email}
+                name="email"
+                value={data.email}
                 onChange={handleChange}
                 required
               />
-              <p>{formErrors.Email}</p>
-              <br />
+              <p>{formErrors.email}</p>
+
               <input
                 type="password"
                 placeholder="Password"
-                name="Password"
-                value={data.Password}
+                name="password"
+                value={data.password}
                 onChange={handleChange}
                 required
               />
-              <p>{formErrors.Password}</p>
-              <br />
+              <p>{formErrors.password}</p>
+
               <div className="log">
                 <button type="submit">Log In</button>
-                <Link to ="/Forget">Forget Password?</Link>
+                <Link to="/Forget">Forget Password?</Link>
               </div>
             </form>
           </div>
@@ -173,4 +127,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Login;

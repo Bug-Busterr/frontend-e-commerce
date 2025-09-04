@@ -1,65 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Image from "../assets/images/image.png";
 import "../styles/SignUp.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 
 const SignUp = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
   const [data, setData] = useState({
-    Username: "",
-    Email: "",
-    Password: "",
-    ConfirmPassword: "",
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    avatar: null, 
   });
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [apiMessage, setApiMessage] = useState(""); 
+  const [apiMessage, setApiMessage] = useState("");
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log("Validation passed");
-    }
-  }, [formErrors, isSubmit]);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    if (e.target.name === "avatar") {
+      setData({ ...data, avatar: e.target.files[0] });
+    } else {
+      setData({ ...data, [e.target.name]: e.target.value });
+    }
   };
 
   const validate = (values) => {
     const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@#-_])/;
 
-    if (!values.Username) {
-      errors.Username = "Username is required!";
-    }
-    if (!values.Email) {
-      errors.Email = "Email is required!";
-    } else if (!regex.test(values.Email)) {
-      errors.Email = "This is not a valid email format!";
-    }
-    if (!values.Password) {
-      errors.Password = "Password is required!";
-    } else if (values.Password.length < 6) {
-      errors.Password = "Password must be at least 6 characters";
-    } else if (!passwordRegex.test(values.Password)) {
-      errors.Password =
-        "Password must contain 1 capital, 1 number, and 1 special char(@ # - _)";
-    }
-    if (!values.ConfirmPassword) {
-      errors.ConfirmPassword = "Confirm Password is required!";
-    } else if (values.Password !== values.ConfirmPassword) {
-      errors.ConfirmPassword = "Passwords do not match!";
-    }
+    if (!values.name) errors.name = "Name is required";
+    if (!values.email) errors.email = "Email is required";
+    else if (!emailRegex.test(values.email))
+      errors.email = "Invalid email format";
+    if (!values.password) errors.password = "Password is required";
+    else if (values.password.length < 6)
+      errors.password = "Password must be at least 6 characters";
+    else if (!passwordRegex.test(values.password))
+      errors.password =
+        "Password must contain 1 capital, 1 number, and 1 special char (@#-_)";
+    if (!values.confirmPassword) errors.confirmPassword = "Confirm password is required";
+    else if (values.password !== values.confirmPassword)
+      errors.confirmPassword = "Passwords do not match";
 
     return errors;
   };
@@ -67,68 +52,46 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormErrors(validate(data));
-    setIsSubmit(true);
-
     if (Object.keys(validate(data)).length > 0) return;
 
     setIsSubmitting(true);
     setApiMessage("");
 
     try {
-      
-      const usersRes = await fetch("https://fakestoreapi.com/users");
-      const users = await usersRes.json();
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone || "");
+      formData.append("password", data.password);
+      if (data.avatar) formData.append("avatar", data.avatar);
 
-      const isDuplicate = users.some(
-        (user) =>
-          user.email?.toLowerCase() === data.Email.toLowerCase() ||
-          user.username?.toLowerCase() === data.Username.toLowerCase()
-      );
-
-      if (isDuplicate) {
-        setApiMessage("User already exists with this Email or Username!");
-        setIsSubmitting(false);
-        return;
-      }
-
-      const res = await fetch("https://fakestoreapi.com/users", {
+      const res = await fetch("https://e-comerce-111.vercel.app/api/auth/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       if (res.ok) {
-        const forData = await res.json();
-        console.log(forData);
         setApiMessage("Account created successfully!");
         setData({
-          Username: "",
-          Email: "",
-          Password: "",
-          ConfirmPassword: "",
+          name: "",
+          email: "",
+          phone: "",
+          password: "",
+          confirmPassword: "",
+          avatar: null,
         });
-
+        setTimeout(() => navigate("/Login"), 1500);
       } else {
-        setApiMessage("Something went wrong, please try again.");
+        const errorData = await res.json();
+        setApiMessage(errorData.message || "Something went wrong");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.error(err);
       setApiMessage("Server error. Please try later.");
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="app-loading">
-        <h2>Loading Sign up Page...</h2>
-        <div className="loading-spinner"></div>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -140,69 +103,64 @@ const SignUp = () => {
         <div className="inform">
           <h2>Create an account</h2>
           <p>Enter your details below</p>
-          <div className="signUp">
-            {apiMessage && (
-              <div
-                className={`api-message ${
-                  apiMessage.includes("successfully")
-                    ? "success"
-                    : apiMessage.includes("exists")
-                    ? "warning"
-                    : "error"
-                }`}
-              >
-                {apiMessage}
-              </div>
-            )}
+          {apiMessage && <div className={`api-message`}>{apiMessage}</div>}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              value={data.name}
+              onChange={handleChange}
+              required
+            />
+            <p>{formErrors.name}</p>
 
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Name"
-                name="Username"
-                value={data.Username}
-                onChange={handleChange}
-                required
-              />
-              <p>{formErrors.Username}</p>
-              <br />
-              <input
-                type="email"
-                placeholder="Email or Phone Number"
-                name="Email"
-                value={data.Email}
-                onChange={handleChange}
-                required
-              />
-              <p>{formErrors.Email}</p>
-              <br />
-              <input
-                type="password"
-                placeholder="Password"
-                name="Password"
-                value={data.Password}
-                onChange={handleChange}
-                required
-              />
-              <p>{formErrors.Password}</p>
-              <br />
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                name="ConfirmPassword"
-                value={data.ConfirmPassword}
-                onChange={handleChange}
-                required
-              />
-              <p>{formErrors.ConfirmPassword}</p>
-              <br />
-              <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Creating..." : "Create Account"}
-              </button>
-            </form>
-          </div>
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={data.email}
+              onChange={handleChange}
+              required
+            />
+            <p>{formErrors.email}</p>
+
+            <input
+              type="text"
+              placeholder="Phone"
+              name="phone"
+              value={data.phone}
+              onChange={handleChange}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={data.password}
+              onChange={handleChange}
+              required
+            />
+            <p>{formErrors.password}</p>
+
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              value={data.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+            <p>{formErrors.confirmPassword}</p>
+
+            <input type="file" name="avatar" onChange={handleChange} />
+
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Creating..." : "Create Account"}
+            </button>
+          </form>
           <span>
-            Already have account? <a href="/Login"> log in</a>
+            Already have account? <a href="/Login">Log in</a>
           </span>
         </div>
       </div>

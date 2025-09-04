@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/ForgetPassword.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");

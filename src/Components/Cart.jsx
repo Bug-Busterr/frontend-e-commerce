@@ -1,18 +1,15 @@
+
 import "../styles/cart.css";
-import Navbar from "./Navbar.jsx";
+import Navbar from "../Components/Navbar.jsx";
 import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import { useState } from "react";
 import { useCart } from "./CartContext.jsx";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQty } = useCart();
+  const { cart, removeFromCart, updateQty, fetchCart } = useCart();
 
-  const coupons = {
-    SAVE10: 0.1,
-    SAVE20: 0.2,
-  };
-
+  const coupons = { SAVE10: 0.1, SAVE20: 0.2 };
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [message, setMessage] = useState("");
@@ -102,8 +99,8 @@ const Cart = () => {
         </table>
 
         <div className="cart-buttons">
-          <button className="btn-outline">Return To Shop</button>
-          <button className="btn-outline">Update Cart</button>
+          <Link to="/" className="btn-outline">Return To Shop</Link>
+          <button className="btn-outline" onClick={fetchCart}>Update Cart</button>
         </div>
 
         <div className="cart-footer">
@@ -121,11 +118,7 @@ const Cart = () => {
             </div>
 
             {message && (
-              <p
-                className={`coupon-message ${
-                  isValidCoupon ? "success" : "error"
-                }`}
-              >
+              <p className={`coupon-message ${isValidCoupon ? "success" : "error"}`}>
                 {message}
               </p>
             )}

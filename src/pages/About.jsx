@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
-import Navbar from "../components/Navbar"
-import Info from "../components/Info"
-import AboutInfo from "../components/aboutInfo"
-import Employees from "../components/employees"
-import Story from "../components/storySection"
+import Navbar from "../Components/Navbar"
+import Info from "../Components/Info"
+import AboutInfo from "../Components/aboutInfo"
+import Employees from "../Components/employees"
+import Story from "../Components/storySection"
 import "../styles/Home.css"
 
 const About = () => {

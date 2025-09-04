@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import Navbar from "../components/Navbar"
-import WishlistSection from "../components/wishlistSection"
-import Recommendation from "../components/recommendation"
+import Navbar from "../Components/Navbar"
+import WishlistSection from "../Components/wishlistSection"
+import Recommendation from "../Components/recommendation"
 
 const wishlist=() =>{
   const [isLoading, setIsLoading] = useState(true)

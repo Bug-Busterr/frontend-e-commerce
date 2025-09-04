@@ -51,7 +51,7 @@
     flex-wrap: wrap;
 }
 
-.card2{
+.card2-show{
     width: 150px; 
     height: 150px;
     display: flex;
@@ -64,17 +64,18 @@
     transition: transform 0.3s;
 }
 
-.card2:hover {
+.card2-show:hover {
     transform: translateY(-5px); 
+    background-color:#DB4444;
+    color:#fff;
 }
 
-.icon{
+.card2-show .icon{
     font-size: 40px;
     margin-bottom: 10px;
     color: #333;
 }
-.laptop{
-    background-color:#DB4444;
+.card2-show:hover .icon{
     color:#fff;
 }
 .category-card hr {

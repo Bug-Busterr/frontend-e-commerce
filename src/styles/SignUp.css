@@ -1,32 +1,30 @@
-
-
-.signUp input {
+.signup-container{
+  margin: 50px;
+}
+.signup-container input {
   width: 320px;
   height: 30px;
   display: flex;
   border: none;
   border-bottom: 1px solid;
-  margin: 5px;
+  margin: 20px;
   padding: 10px;
 }
 
-.signUp button {
+.signup-container button {
   width: 371px; 
   height: 56px;
   gap: 10px;
   border-radius: 4px;
   border: none;
-  padding-top: 16px;
-  padding-right: 122px;
-  padding-bottom: 16px;
-  padding-left: 122px;
+  padding: 16px 122px;
   background-color: #db4444;
   color: white;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.signUp button:disabled {
+.signup-container button:disabled {
   background-color: #aaa;
   cursor: not-allowed;
 }
@@ -46,11 +44,12 @@
   border-bottom: 1px solid;
 }
 
-.signUp p {
+.signup-container p {
   font-size: 12px;
   color: red;
   margin: 0 0 5px 5px;
 }
+
 .api-message {
   width: 90%;
   max-width: 400px;
@@ -93,34 +92,35 @@
   width: 100%;
 }
 
-.signup-container.img img {
+.signup-container .img img {
   width: 100%;
   height: auto;
 }
-.signup-container.inform {
+
+.signup-container .inform {
   display: flex;
   flex-direction: column;
 }
 
 @media (max-width: 1250px) {
-  .signup-container{
+  .signup-container {
     flex-direction: column;
     text-align: center;
     align-items: center;
   }
-  .signup-container .img img{
-    display: none; 
+
+  .signup-container .img img {
+    display: none;
   }
 
   .signup-container .inform {
     order: 1; 
     align-items: center;
-    margin: 60px;
+    margin: 60px 0;
   }
-  .signup-container .inform span{
+
+  .signup-container .inform span {
     display: flex;
     align-items: center;
   }
 }
-
-
