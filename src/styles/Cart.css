@@ -149,13 +149,35 @@
   text-align: left;
   animation: fadeIn 0.3s ease-in-out;
 }
-
+.plus{
+  padding:3px;
+  margin:5px;
+  background-color:#fff;
+  border-color:#000000c9;
+  outline: none;
+  border-radius: 5px;
+  color:#000000c9;
+  
+}
 .coupon-message.success {
   background-color: #e6f9ed;
   color: #2d7a46;
   border: 1px solid #2d7a46;
 }
+.remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;  
+  color: #e63946;   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.remove-btn:hover {
+  color: #c62828; 
+}
 .coupon-message.error {
   background-color: #fdecea;
   color: #a12622;
