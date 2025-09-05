@@ -1,6 +1,6 @@
-import BillingDetailsForm from '../components/BillingDetailsForm.jsx';
-import OrderSummary from '../components/OrderSummary.jsx';
-import Navbar from '../components/Navbar.jsx'
+import BillingDetailsForm from '../Components/BillingDetailsForm.jsx';
+import OrderSummary from '../Components/OrderSummary.jsx';
+import Navbar from '../Components/Navbar.jsx'
 
 function Checkout() {
   return (

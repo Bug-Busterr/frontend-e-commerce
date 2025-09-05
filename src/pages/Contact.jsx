@@ -1,7 +1,6 @@
-import React from 'react'
 import { useState, useEffect } from "react"
-import Navbar from "../components/Navbar"
-import ContactSection from "../components/contactSection"
+import Navbar from "../Components/Navbar"
+import ContactSection from "../Components/contactSection"
 
 const Contact = () => {
   const [isLoading, setIsLoading] = useState(true)

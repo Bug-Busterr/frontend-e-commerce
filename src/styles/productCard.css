@@ -81,6 +81,7 @@
   right: 20px;
   top: 40px;
   font-size: 20px;
+  color: #000000;
 }
 .icon.eye:hover {
   transform: translateY(-5px);

@@ -5,7 +5,7 @@ import Card1 from '../Components/Card1'
 import Banner from '../Components/banner'
 import Explore from '../Components/productSection'
 import NewArrival from '../Components/newArrivalSection'
-import Info from '../components/Info'
+import Info from '../Components/Info'
 import { useState, useEffect } from "react"
 import "../styles/Home.css"
 
