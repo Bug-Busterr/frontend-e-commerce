@@ -5,7 +5,7 @@ import ProductCard from '../components/ProductCard';
 
 const ExploreProducts = () => {
   
-  const { data, loading, error } = useFetch("https://fakestoreapi.com/products")
+  const { data, loading, error } = useFetch("https://e-comerce-111.vercel.app/api/auth/admin/products")
   const [showAll, setShowAll] = useState(false)
   const cardsRef = useRef(null);
   
@@ -24,7 +24,7 @@ const ExploreProducts = () => {
                     <ProductCard
                         key={product.id}
                         id={product.id} 
-                        img={product.image}
+                        img={product.images[0]?.url}
                         name={product.title}
                         oldPrice={(product.price * 1.2).toFixed(2)}
                         newPrice={product.price}
