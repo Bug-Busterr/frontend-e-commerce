@@ -9,7 +9,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import Login from "./pages/Login.jsx";
 import ForgetPass from "./pages/ForgetPassword.jsx";
-import ResetPass from "./pages/ResetPassword.jsx";
+// import ResetPass from "./pages/ResetPassword.jsx";
 import Signup from "./pages/SignUp.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import Footer from "./Components/footer";
@@ -45,8 +45,7 @@ function App() {
           <Route path="/Signup" element={<Signup setToken={setToken} setRole={setRole} />} />
           <Route path="/Account" element={<Account token={token} />} />
           <Route path="/Forget" element={<ForgetPass />} />
-          <Route path="/Reset" element={<ResetPass />} />
-          <Route path="/Orders" element={<Orders token={token} />} />
+          {/* <Route path="/Orders" element={<Orders token={token} />} /> */}
         </Routes>
       </CartProvider>
       <Footer />
