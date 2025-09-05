@@ -2,7 +2,7 @@ import { FaTrash } from "react-icons/fa";
 import "../styles/wishlistSection.css";
 import "../styles/wishlistCard.css";
 import { useWishlist } from "../Components/WishlistContext";
-import { useCart } from "./CartContext";
+import { useCart } from "../Components/CartContext";
 
 
 const WishlistSection = () => {

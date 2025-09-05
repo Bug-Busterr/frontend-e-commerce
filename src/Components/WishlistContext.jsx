@@ -1,4 +1,3 @@
-// src/components/WishlistContext.jsx
 import { createContext, useState, useContext } from "react";
 
 const WishlistContext = createContext();

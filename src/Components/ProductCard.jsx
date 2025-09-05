@@ -1,6 +1,6 @@
 import { FaEye, FaHeart, FaStar, FaRegHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useCart } from './CartContext';
+import { useCart } from '../Components/CartContext';
 import '../styles/productCard.css';
 import { useWishlist } from "../Components/WishlistContext";
 
