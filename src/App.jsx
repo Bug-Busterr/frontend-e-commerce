@@ -9,14 +9,16 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import Login from "./pages/Login.jsx";
 import ForgetPass from "./pages/ForgetPassword.jsx";
-// import ResetPass from "./pages/ResetPassword.jsx";
 import Signup from "./pages/SignUp.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import Footer from "./Components/footer";
 import Checkout from "./pages/Checkout.jsx";
 import Account from "./pages/Account.jsx";
 import { CartProvider } from "./components/CartContext.jsx";
-import Orders from "./pages/UserOrders.jsx";
+
+import { WishlistProvider } from "./Components/WishlistContext.jsx";
+import UserOrder from './Components/UserOrder.jsx'
+
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
@@ -31,6 +33,7 @@ function App() {
 
   return (
     <>
+       <WishlistProvider>
       <CartProvider>
         <Routes>
           <Route path="/" element={<Home token={token} />} />
@@ -45,10 +48,12 @@ function App() {
           <Route path="/Signup" element={<Signup setToken={setToken} setRole={setRole} />} />
           <Route path="/Account" element={<Account token={token} />} />
           <Route path="/Forget" element={<ForgetPass />} />
-          {/* <Route path="/Orders" element={<Orders token={token} />} /> */}
+          <Route path="/UserOrder" element={<UserOrder />} />
         </Routes>
       </CartProvider>
+      </WishlistProvider>
       <Footer />
+      
     </>
   );
 }

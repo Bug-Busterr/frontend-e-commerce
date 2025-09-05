@@ -1,10 +1,10 @@
 import '../styles/checkout.css'; 
 import { useCart } from '../components/CartContext'; 
-
+import { useNavigate } from "react-router-dom";
 function OrderSummary() {
 
   const { cart } = useCart();
-
+const navigate = useNavigate();
   
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
@@ -58,7 +58,7 @@ function OrderSummary() {
         <button className="apply-coupon-btn">Apply Coupon</button>
       </div>
 
-      <button className="place-order-btn">Place Order</button>
+      <button className="place-order-btn" onClick={() => navigate('/UserOrder')}>Place Order</button>
     </div>
   );
 }

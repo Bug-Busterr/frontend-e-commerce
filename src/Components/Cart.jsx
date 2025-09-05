@@ -73,13 +73,13 @@ const Cart = () => {
                 <td className="quantity-cell">
                   <div className="quantity-controls">
                     <button
-                      onClick={() => handleQtyChange(item.id, -1)}
+                      onClick={() => handleQtyChange(item.id, -1)} className='plus'
                       disabled={item.qty <= 1}
                     >
                       <FaMinus />
                     </button>
                     <span>{item.qty}</span>
-                    <button onClick={() => handleQtyChange(item.id, 1)}>
+                    <button onClick={() => handleQtyChange(item.id, 1)} className='plus'>
                       <FaPlus />
                     </button>
                   </div>
@@ -119,6 +119,7 @@ const Cart = () => {
 
             {message && (
               <p className={`coupon-message ${isValidCoupon ? "success" : "error"}`}>
+
                 {message}
               </p>
             )}
