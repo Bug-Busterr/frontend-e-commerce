@@ -58,14 +58,23 @@ const SignUp = () => {
     setApiMessage("");
 
     try {
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("email", data.email);
-      formData.append("phone", data.phone || "");
-      formData.append("password", data.password);
-      if (data.avatar) formData.append("avatar", data.avatar);
+      
+      const usersRes = await fetch("https://e-comerce-111.vercel.app/api/auth/register");
+      const users = await usersRes.json();
 
-      const res = await fetch("https://e-comerce-111.vercel.app/api/auth/register", {
+      const isDuplicate = users.some(
+        (user) =>
+          user.email?.toLowerCase() === data.Email.toLowerCase() ||
+          user.username?.toLowerCase() === data.Username.toLowerCase()
+      );
+
+      if (isDuplicate) {
+        setApiMessage("User already exists with this Email or Username!");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const res = await fetch("https://fakestoreapi.com/users", {
         method: "POST",
         body: formData,
       });
